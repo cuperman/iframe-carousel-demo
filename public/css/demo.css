@@ -1,0 +1,7 @@
+#carousel {
+  height: 500px;
+}
+
+#carousel.well {
+  padding: 0;
+}
