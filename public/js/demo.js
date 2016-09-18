@@ -11,9 +11,9 @@ $(document).ready(function() {
     // loading new page every 5 seconds
     interval: 5000,
     // using the following transition on entrance
-    transitionIn: 'zoomInDown',
+    transitionIn: 'bounceInLeft',
     // using the following transition on exit
-    transitionOut: 'zoomOutDown'
+    transitionOut: 'bounceOutRight'
     // see https://daneden.github.io/animate.css for more transition options
   });
 });

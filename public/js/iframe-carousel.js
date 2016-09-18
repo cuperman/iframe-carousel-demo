@@ -90,12 +90,12 @@
   /**
    * Controls the carousel
    */
-  var IframeCarousel = function(el, sources) {
+  var IframeCarousel = function(el, options) {
     this.$el = $(el);
-    this.sources = sources || [];
-    this.interval = 5000; // 5 seconds
-    this.transitionIn = 'zoomInDown';
-    this.transitionOut = 'zoomOutDown';
+    this.sources = options.sources || [];
+    this.interval = options.interval || 5000; // 5 seconds
+    this.transitionIn = options.transitionIn || 'bounceInLeft';
+    this.transitionOut = options.transitionOut || 'bounceOutRight';
     
     if (this.sources.length < 2) {
       throw 'InsufficientSources';
@@ -179,6 +179,6 @@
    * Exports IframeCarousel as a jQuery plugin
    */
   $.fn.iframeCarousel = function(options) {
-    new IframeCarousel(this, options.sources).run();
+    new IframeCarousel(this, options).run();
   };
 })();
