@@ -58,7 +58,7 @@ You can bind the carousel to any element on the page, so create an empty element
 		<div id="carousel"></div>
 		<!-- Script to instantiate the plugin -->
 		<script>
-			$("#carousel").IframeCarousel({
+			$("#carousel").iframeCarousel({
 				// cycle through the following pages
 				sources: [
 					'http://page1.com',
