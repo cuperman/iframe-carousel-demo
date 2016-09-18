@@ -8,9 +8,9 @@ $(document).ready(function() {
     ],
     // loading new page every 5 seconds
     interval: 5000,
-    // use the following transition on entrance
+    // using the following transition on entrance
     transitionIn: 'zoomInDown',
-    // use the following transition on exit
+    // using the following transition on exit
     transitionOut: 'zoomOutDown'
     // see https://daneden.github.io/animate.css for more transition options
   });
