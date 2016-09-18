@@ -1,4 +1,6 @@
 (function() {
+  'use strict';
+
   //============================================================================
   // Views
   //============================================================================
@@ -13,12 +15,12 @@
       this.$el.addClass(options.classed);
     }
     return this;
-  }
+  };
 
   Element.prototype.appendTo = function(parent) {
     $(parent).append(this.$el);
     return this;
-  }
+  };
 
   Element.prototype.show = function() {
     this.$el.show();
@@ -60,7 +62,7 @@
   };
 
   // Inherit Element prototype
-  Iframe.prototype = Object.create(Element.prototype)
+  Iframe.prototype = Object.create(Element.prototype);
 
   Iframe.prototype.setSource = function(source) {
     this.$el.attr('src', source);
@@ -71,6 +73,9 @@
   // Controllers
   //============================================================================
 
+  /**
+   * Controls the carousel
+   */
   var IframeCarousel = function(el, sources) {
     this.$el = $(el);
     this.interval = 5000; // 5 seconds
@@ -104,7 +109,7 @@
 
   IframeCarousel.prototype.nextSource = function() {
     var nextIndex = this.visibleSourceIndex + 1;
-    if (nextIndex == this.sources.length) {
+    if (nextIndex === this.sources.length) {
       nextIndex = 0;
     }
     return this.sources[nextIndex];
@@ -112,7 +117,7 @@
 
   IframeCarousel.prototype.incrementSource = function() {
     this.visibleSourceIndex++;
-    if (this.visibleSourceIndex == this.sources.length) {
+    if (this.visibleSourceIndex === this.sources.length) {
       this.visibleSourceIndex = 0;
     }
   };
@@ -155,7 +160,7 @@
   //============================================================================
 
   /**
-   * Export IframeCarousel as a jQuery plugin
+   * Exports IframeCarousel as a jQuery plugin
    */
   $.fn.iframeCarousel = function(options) {
     new IframeCarousel(this, options.sources).run();

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  'use strict';
+
   $('#carousel').iframeCarousel({
     // cycle through the following pages
     sources: [
