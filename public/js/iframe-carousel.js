@@ -10,15 +10,20 @@
    */
   var Element = function(name, options) {
     name = name || 'div';
-    this.$el = $(document.createElement(name));
+    options = options || {};
+
+    this.el = document.createElement(name);
+    this.$el = $(this.el);
+
     if (options.classed) {
       this.$el.addClass(options.classed);
     }
+
     return this;
   };
 
-  Element.prototype.appendTo = function(parent) {
-    $(parent).append(this.$el);
+  Element.prototype.appendTo = function(parentElement) {
+    $(parentElement).append(this.$el);
     return this;
   };
 
@@ -44,7 +49,7 @@
       before.call(this);
     }
     return deferred.promise();
-  }
+  };
 
   Element.prototype.animateIn = function(transition) {
     var classed = ['animated', transition].join(' ');
@@ -98,7 +103,7 @@
     this.transitionOut = options.transitionOut || 'bounceOutRight';
     
     if (this.sources.length < 2) {
-      throw 'InsufficientSources';
+      throw new Error('InsufficientSources');
     }
 
     this.visibleSourceIndex = 0;
@@ -180,5 +185,14 @@
    */
   $.fn.iframeCarousel = function(options) {
     new IframeCarousel(this, options).run();
+  };
+  
+  /**
+   * Exports objects to the window for testing
+   */
+  window.iframeCarousel = {
+    Element: Element,
+    Iframe: Iframe,
+    IframeCarousel: IframeCarousel
   };
 })();
