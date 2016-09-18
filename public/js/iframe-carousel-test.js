@@ -1,12 +1,12 @@
-/* globals describe, it, expect */
+/* globals describe, it, expect, beforeEach, afterEach */
 
 (function() {
   'use strict';
   
   // Undo the namespacing for simpler references in tests
   var Element = window.iframeCarousel.Element,
-      Iframe  = window.iframeCarousel.Iframe,
-      IframeCarousel = window.iframeCarousel.IframeCarousel;
+      Frame  = window.iframeCarousel.Frame,
+      Carousel = window.iframeCarousel.Carousel;
   
   describe('Element', function() {
     describe('::constructor', function() {
@@ -64,10 +64,10 @@
     });
   });
   
-  describe('Iframe', function() {
+  describe('Frame', function() {
     describe('::constructor', function() {
       it('creates an iframe element classed carousel-frame', function() {
-        var iframe = new Iframe();
+        var iframe = new Frame();
         expect(iframe.el.outerHTML).toEqual('<iframe class="carousel-frame"></iframe>');
       });
     });
@@ -76,7 +76,7 @@
       var iframe = null;
 
       beforeEach(function() {
-        iframe = new Iframe();
+        iframe = new Frame();
       });
       
       afterEach(function() {
@@ -84,13 +84,13 @@
       });
 
       it('sets the src attribute of the iframe', function() {
-        iframe.setSource('/foo.html')
-        expect(iframe.el.outerHTML).toMatch('src="/foo.html"')
+        iframe.setSource('/foo.html');
+        expect(iframe.el.outerHTML).toMatch('src="/foo.html"');
       });
     });
   });
     
-  describe('IframeCarousel', function() {
+  describe('Carousel', function() {
     var el = null,
         sources = null;
     
@@ -100,7 +100,7 @@
         '/foo.html',
         '/bar.html',
         '/baz.html'
-      ]
+      ];
     });
     
     afterEach(function() {
@@ -110,12 +110,12 @@
 
     describe('::constructor', function() {
       it('saves the element as a jQuery object', function() {
-        var carousel = new IframeCarousel(el, { sources: sources });
+        var carousel = new Carousel(el, { sources: sources });
         expect(carousel.$el instanceof jQuery).toBe(true);
       });
       
       it('saves the options', function() {
-        var carousel = new IframeCarousel(el, {
+        var carousel = new Carousel(el, {
           sources: sources,
           interval: 12345,
           transitionIn: 'fadeIn',
@@ -129,17 +129,17 @@
       
       it('throws an error if sources are less than 2', function() {
         expect(function() {
-          new IframeCarousel(el, ['/foo.html']);
+          new Carousel(el, ['/foo.html']);
         }).toThrowError('InsufficientSources');
       });
 
-      it('initializes visibleSourceIndex to 0', function() {
-        var carousel = new IframeCarousel(el, { sources: sources });
-        expect(carousel.visibleSourceIndex).toEqual(0);
+      it('initializes currentSourceIndex to 0', function() {
+        var carousel = new Carousel(el, { sources: sources });
+        expect(carousel.currentSourceIndex).toEqual(0);
       });
       
       it('initializes the dom with 2 iframes, one visible and one hidden, inside a container', function() {
-        var carousel = new IframeCarousel(el, { sources: sources });
+        var carousel = new Carousel(el, { sources: sources });
         expect(carousel.$el.get(0).outerHTML).toEqual(
           '<div>' +
             '<div class="carousel-container">' +
@@ -151,7 +151,7 @@
       });
     });
     
-    describe('#visibleSource', function() {
+    describe('#currentSource', function() {
       it('does something');
     });
     

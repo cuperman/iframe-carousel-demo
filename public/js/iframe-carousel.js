@@ -74,16 +74,16 @@
   /**
    * Object abstraction of iframe element
    */
-  var Iframe = function() {
+  var Frame = function() {
     // super
     Element.call(this, 'iframe', { classed: 'carousel-frame' });
     return this;
   };
 
   // Inherit Element prototype
-  Iframe.prototype = Object.create(Element.prototype);
+  Frame.prototype = Object.create(Element.prototype);
 
-  Iframe.prototype.setSource = function(source) {
+  Frame.prototype.setSource = function(source) {
     this.$el.attr('src', source);
     return this;
   };
@@ -95,7 +95,7 @@
   /**
    * Controls the carousel
    */
-  var IframeCarousel = function(el, options) {
+  var Carousel = function(el, options) {
     this.$el = $(el);
     this.sources = options.sources || [];
     this.interval = options.interval || 5000; // 5 seconds
@@ -106,12 +106,12 @@
       throw new Error('InsufficientSources');
     }
 
-    this.visibleSourceIndex = 0;
+    this.currentSourceIndex = 0;
 
     this.container = new Element('div', { classed: 'carousel-container' });
     this.frames = [
-      new Iframe(),
-      new Iframe()
+      new Frame(),
+      new Frame()
     ];
     this.visibleFrame = this.frames[0].show();
     this.hiddenFrame  = this.frames[1].hide();
@@ -124,34 +124,34 @@
     return this;
   };
 
-  IframeCarousel.prototype.visibleSource = function() {
-    return this.sources[this.visibleSourceIndex];
+  Carousel.prototype.currentSource = function() {
+    return this.sources[this.currentSourceIndex];
   };
 
-  IframeCarousel.prototype.nextSource = function() {
-    var nextIndex = this.visibleSourceIndex + 1;
+  Carousel.prototype.nextSource = function() {
+    var nextIndex = this.currentSourceIndex + 1;
     if (nextIndex === this.sources.length) {
       nextIndex = 0;
     }
     return this.sources[nextIndex];
   };
 
-  IframeCarousel.prototype.incrementSource = function() {
-    this.visibleSourceIndex++;
-    if (this.visibleSourceIndex === this.sources.length) {
-      this.visibleSourceIndex = 0;
+  Carousel.prototype.incrementSource = function() {
+    this.currentSourceIndex++;
+    if (this.currentSourceIndex === this.sources.length) {
+      this.currentSourceIndex = 0;
     }
   };
 
-  IframeCarousel.prototype.loadFirstFrame = function() {
-    this.visibleFrame.setSource(this.visibleSource());
+  Carousel.prototype.loadFirstFrame = function() {
+    this.visibleFrame.setSource(this.currentSource());
   };
 
-  IframeCarousel.prototype.loadNextFrame = function() {
+  Carousel.prototype.loadNextFrame = function() {
     this.hiddenFrame.setSource(this.nextSource());
   };
 
-  IframeCarousel.prototype.toggleFrames = function() {
+  Carousel.prototype.toggleFrames = function() {
     var promise = $.when(
       this.visibleFrame.animateOut(this.transitionOut),
       this.hiddenFrame.animateIn(this.transitionIn)
@@ -164,7 +164,7 @@
     return promise;
   };
 
-  IframeCarousel.prototype.run = function() {
+  Carousel.prototype.run = function() {
     this.loadFirstFrame();
     this.loadNextFrame();
 
@@ -181,10 +181,10 @@
   //============================================================================
 
   /**
-   * Exports IframeCarousel as a jQuery plugin
+   * Exports Carousel as a jQuery plugin
    */
   $.fn.iframeCarousel = function(options) {
-    new IframeCarousel(this, options).run();
+    new Carousel(this, options).run();
   };
   
   /**
@@ -192,7 +192,7 @@
    */
   window.iframeCarousel = {
     Element: Element,
-    Iframe: Iframe,
-    IframeCarousel: IframeCarousel
+    Frame: Frame,
+    Carousel: Carousel
   };
 })();
