@@ -15,6 +15,17 @@ $ popd
 
 Then visit [iframe-carousel-demo.dev](http://iframe-carousel-demo.dev/) in your favorite browser
 
+## Testing
+
+Open [iframe-carousel-demo.dev/test.html](http://iframe-carousel-demo.dev/test.html) to run the [Jasmine](http://jasmine.github.io/) tests.
+
+Use [jshint](http://jshint.com/) to check for lint errors.
+
+```bash
+$ npm -g install jshint
+$ jshint public/js/*.js
+```
+
 ## Usage
 
 If you want to use this in another app, you can steal the `iframe-carousel.js` and `iframe-carousel.css` files.
